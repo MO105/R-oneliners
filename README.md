@@ -2,6 +2,11 @@
 
 Useful R one-liners for bioinformatics
 
+## Install/load many packages at once
+install.packages('needs') # first we install "needs" the old way
+library(needs)
+needs(rmarkdown, ggplot2, readr, tidyr, stringr)
+
 ## Add more color's to brewer.pal's 9 color limit with colorRampPalette
 color = colorRampPalette(rev(brewer.pal(n = 9, name = "BuPu")))(100)
 
