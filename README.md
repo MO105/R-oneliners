@@ -10,6 +10,9 @@ needs(rmarkdown, ggplot2, readr, tidyr, stringr)
 ## Add more color's to brewer.pal's 9 color limit with colorRampPalette
 color = colorRampPalette(rev(brewer.pal(n = 9, name = "BuPu")))(100)
 
+## If you see that year is being treated as a number and not as a year or factor
+df$year <- factor(df$year, ordered = TRUE)
+
 ## Rename a column 
 if (!require("plyr")) {
    install.packages("plyr", dependencies = TRUE)
