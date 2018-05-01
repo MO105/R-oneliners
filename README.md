@@ -1,6 +1,6 @@
 # R-oneliners
 
-Useful R one-liners for bioinformatics
+Useful R one-liners
 
 ## Install/load many packages at once
 install.packages('needs') # first we install "needs" the old way
