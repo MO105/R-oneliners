@@ -21,6 +21,12 @@ if (!require("plyr")) {
 
 df1 <- plyr::rename(df1,c("log2FC"="dBet6_1h"))
 
+## Conditional statement to replace an erroneous date with a missing value
+library(lubridate)
+library(dplyr)
+y <- mdy("1/23/2016", "3/2/2016", "12/1/1901", "11/23/2016")
+if_else( year(y) != 2016, mdy(NA), y) # wrapping NA in date function mdy() forcces it into a date object
+
 ## If a column has many measurements for one variable (duplicate row names with different values in different column) group them and take the sum
 if (!require("dplyr")) {
    install.packages("dplyr", dependencies = TRUE)
