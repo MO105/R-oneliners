@@ -1,6 +1,8 @@
-# R-oneliners
+# Useful R <s>one-liners<s> knowledge
+***
+> The streamlining of the big dollar stores opens up, for other outlets, their original source of cheap merchandise: distressed goods, closeouts, overstock, salvage merchandize, department-store returns, liquidated goods, discontinued lines, clearance items, ex-catalog stock, freight-damaged goods, irregulars, salvage cosmetics, test-market items and bankruptcy inventories.
 
-Useful R one-liners
+Here is my dollar-store inventory of how to do stuff in R
 
 ## Install/load many packages at once
 install.packages('needs') # first we install "needs" the old way
@@ -26,6 +28,38 @@ library(lubridate)
 library(dplyr)
 y <- mdy("1/23/2016", "3/2/2016", "12/1/1901", "11/23/2016")
 if_else( year(y) != 2016, mdy(NA), y) # wrapping NA in date function mdy() forcces it into a date object
+
+y <- c("apple", "banana", "banana", "pear", "apple")
+if_else( y == "banana", as.character(NA), y)
+
+## Changing values based on multiple conditions 
+### if multiple sets of conditions are to be tested, nested if/else statements become cumbersome and are prone to clerical error.
+z <- c("deg","F","C", "Temperature")
+case_when(z == "deg" ~ "Degree",
+          z == "F" ~ "Fahrenheit",
+          z == "C" ~ "Celsius",
+          TRUE ~ z)
+          
+## Use `if_else` `case_when` and `recode` inside a `mutate` function
+dat1 <- dat %>% 
+  mutate(Country = recode(Country, "Canada" = "CAN",
+                                   "United States of America" = "USA"),
+         Type = case_when(Source == "Calculated data" ~ 1,
+                          Source == "Official data" ~ 2,
+                          TRUE ~ 3)) 
+head(dat1)  
+
+## Outputting a vector instead of a table using `pull()`
+oats <- dat %>% 
+  filter(Crop == "Oats",
+         Information == "Yield (Hg/Ha)") %>% 
+  summarise(Oats_sum = sum(Value)) %>% 
+  pull()
+oats
+          
+## Replace NA factor levels
+library(forcats)
+x <- fct_explicit_na(x, na_level = "Other")
 
 ## If a column has many measurements for one variable (duplicate row names with different values in different column) group them and take the sum
 if (!require("dplyr")) {
