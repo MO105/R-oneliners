@@ -26,6 +26,17 @@ df$year <- factor(df$year, ordered = TRUE)
 cars >%
    filter(speed > 20) %>%
    rename(high_speed = speed)
+   
+## `add_tally()` is short-hand for `mutate()`
+mtcars %>% add_tally()
+
+## `count()` is short-hand for `group_by()` and `tally()`
+mtcars %>% add_tally()
+
+## `add_count()` is short-hand for `group_by()` and `add_tally()` and is useful for groupwise filtering (e.g. show only species with a single member)
+starwars %>%
+  add_count(species) %>%
+  filter(n == 1)
 
 ## Conditional statement to replace an erroneous date with a missing value
 library(lubridate)
