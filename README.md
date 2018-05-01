@@ -9,6 +9,13 @@ install.packages('needs') # first we install "needs" the old way
 library(needs)
 needs(rmarkdown, ggplot2, readr, tidyr, stringr)
 
+## Useful line for knitting `.Rmd` files
+if (!require("needs")) {
+   install.packages("needs", dependencies = TRUE)
+   library(needs)
+}
+needs(rmarkdown, ggplot2, readr, tidyr, stringr)
+
 ## Add more color's to brewer.pal's 9 color limit with colorRampPalette
 color = colorRampPalette(rev(brewer.pal(n = 9, name = "BuPu")))(100)
 
@@ -16,12 +23,9 @@ color = colorRampPalette(rev(brewer.pal(n = 9, name = "BuPu")))(100)
 df$year <- factor(df$year, ordered = TRUE)
 
 ## Rename a column 
-if (!require("plyr")) {
-   install.packages("plyr", dependencies = TRUE)
-   library(plyr)
-}
-
-df1 <- plyr::rename(df1,c("log2FC"="dBet6_1h"))
+cars >%
+   filter(speed > 20) %>%
+   rename(high_speed = speed)
 
 ## Conditional statement to replace an erroneous date with a missing value
 library(lubridate)
