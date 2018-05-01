@@ -1,4 +1,4 @@
-# Useful R <s> one-liners <s> knowledge
+# Useful R <s>one-liners knowledge
 ***
 > The streamlining of the big dollar stores opens up, for other outlets, their original source of cheap merchandise: distressed goods, closeouts, overstock, salvage merchandize, department-store returns, liquidated goods, discontinued lines, clearance items, ex-catalog stock, freight-damaged goods, irregulars, salvage cosmetics, test-market items and bankruptcy inventories.
 
