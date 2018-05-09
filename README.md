@@ -99,3 +99,11 @@ dm1 <- [dm1>10] <- 10
 
 ## Delete duplicated rows based on one column
 df1 <- df1[!duplicated(df1$Gene_symbol),]
+
+## Make bold titles and add a little space at the baseline
+g + theme(plot.title = element_text(size = 20, face="bold", margin = margin(10, 0 , 10, 0)))
+
+## Subset dates
+date = "1997-01-01"
+df$year <- substring(df$date, 1, 4)
+df$month <- substring(df$date, 6, 7)
