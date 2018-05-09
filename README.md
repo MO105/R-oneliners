@@ -100,10 +100,56 @@ dm1 <- [dm1>10] <- 10
 ## Delete duplicated rows based on one column
 df1 <- df1[!duplicated(df1$Gene_symbol),]
 
-## Make bold titles and add a little space at the baseline
-g + theme(plot.title = element_text(size = 20, face="bold", margin = margin(10, 0 , 10, 0)))
-
 ## Subset dates
 date = "1997-01-01"
 df$year <- substring(df$date, 1, 4)
 df$month <- substring(df$date, 6, 7)
+
+## Make bold titles and add a little space at the baseline
+g + theme(plot.title = element_text(size = 20, face="bold", margin = margin(10, 0 , 10, 0)))
+
+## Use other fonts in title
+library(extrafont)
+g+theme(plot.title = element_text(size=30,lineheight=.8, 
+  vjust=1,family="Bauhaus 93"))
+  
+## Multi-line title?
+g<-g+ggtitle("This is a longer\ntitle than expected")
+g+theme(plot.title = element_text(size=20, face="bold", vjust=1, lineheight=0.6))
+
+## Temperature in axis
+y=expression(paste("Temperature ( ", degree ~ F, " )")), title="Temperature")
+
+## Change size of and rotate axis test
+g + theme(axis.text.x=element_text(angle=50, size=20, vjust=0.5))
+
+## Treat a discrete variable like character as factor 
+g<-ggplot(nmmaps, aes(date, temp, color=factor(season)))+geom_point()
+
+## Change the title of a legend
+g+theme(legend.title = element_text(colour="chocolate", size=16, face="bold"))+
+  scale_color_discrete(name="This is\nchocolate season!?")
+
+## Change the colors of fill/color
+g+geom_line()+ scale_colour_manual(name='', values=c('Player1'='grey', 'Player2'='red'))
+
+## Use Tableau colors
+library(ggthemes)
+g+scale_colour_tableau()
+
+## Modify color choice with continuous variables (sequential color scheme)
+g+scale_color_gradient(low="darkkhaki", high="darkgreen")
+
+## Modify color choice with continuous variables that are normally distributed (diverging color scheme)
+mid<-mean(nmmaps$o3)
+ggplot(nmmaps, aes(date, temp, color=o3))+
+geom_point()+
+scale_color_gradient2(midpoint=mid, low="blue", mid="white", high="red" )
+
+## Add jittered points to violin for distribution
+g+geom_violin(alpha=0.5, color="gray")+
+geom_jitter(alpha=0.5, aes(color=season), position = position_jitter(width = 0.1))+
+coord_flip()
+
+## Turn off legend title
+g+theme(legend.title=element_blank())
