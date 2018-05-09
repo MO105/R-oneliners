@@ -2,7 +2,7 @@
 ***
 > The streamlining of the big dollar stores opens up, for other outlets, their original source of cheap merchandise: distressed goods, closeouts, overstock, salvage merchandize, department-store returns, liquidated goods, discontinued lines, clearance items, ex-catalog stock, freight-damaged goods, irregulars, salvage cosmetics, test-market items and bankruptcy inventories.
 
-Here is my dollar-store inventory of how to do stuff in R
+Here is my dollar-store inventory of how to do stuff in R. Plans are eventually to split this into sections (e.g. visualization with ggplot2, manipulation with dplyr, etc.) and make this `.Rmd` pretty but I may never.
 
 ## Install/load many packages at once
 install.packages('needs') # first we install "needs" the old way
