@@ -5,7 +5,7 @@
 Here is my dollar-store inventory of how to do stuff in R. Plans are eventually to split this into sections (e.g. visualization with ggplot2, manipulation with dplyr, etc.) and make this `.Rmd` pretty but I may never.
 
 ## Install/load many packages at once
-install.packages('needs') # first we install "needs" the old way
+install.packages('needs')
 library(needs)
 needs(rmarkdown, ggplot2, readr, tidyr, stringr)
 
@@ -110,6 +110,9 @@ library(stringr)
 some_objs <- c("pen", "pencil", "marker", "spray")
 str_detect(some_objs, "pen")
 some_objs[str_detect(some_objs, "pen")]
+
+strings = c("12 Jun 2002", "8 September 2004", "22-July-2009 ", "01 01 2001", "date", "02.06.2000", "xxx-yyy-zzzz", "$2,600")
+dates = "([0-9]{1,2})[- .]([a-zA-Z]+)]- .]([0-9]{4})"
 
 # Make bold titles and add a little space at the baseline
 g + theme(plot.title = element_text(size = 20, face="bold", margin = margin(10, 0 , 10, 0)))
