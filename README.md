@@ -105,6 +105,9 @@ date = "1997-01-01"
 df$year <- substring(df$date, 1, 4)
 df$month <- substring(df$date, 6, 7)
 
+# Trim extra whitespaces with a single blank space
+str_replace_all(text, pattern = "\\s+", " ")
+
 # Detecting patterns with `str_detect()` 
 library(stringr)
 some_objs <- c("pen", "pencil", "marker", "spray")
@@ -113,6 +116,29 @@ some_objs[str_detect(some_objs, "pen")]
 
 strings = c("12 Jun 2002", "8 September 2004", "22-July-2009 ", "01 01 2001", "date", "02.06.2000", "xxx-yyy-zzzz", "$2,600")
 dates = "([0-9]{1,2})[- .]([a-zA-Z]+)]- .]([0-9]{4})"
+
+# Reverse a string by characters
+reverse_chars <- function(string){
+   string_split = strsplit(as.character(string), split = "")
+   reversed_split = string_split[[1]][nchar(string):1]
+   paste(reversed_split, collapse="")
+   }
+
+# Reverse a string by words
+reverse_words <- function(string){
+   string_split = strsplit(as.character(string), split = " ")
+   string_length = length(string_split[[1]])
+   if (string_length == 1) {
+      reversed_string = string_split[[1]]
+     }
+   else {
+      reversed_split = string_split[[1]][string_length:1]
+      reversed_string = paste(reversed_split, collapse = " ")
+   }
+   return(reversed_string)
+}
+
+lapply(c("the big bang theory", "atmosphere"), reverse_words)
 
 # Make bold titles and add a little space at the baseline
 g + theme(plot.title = element_text(size = 20, face="bold", margin = margin(10, 0 , 10, 0)))
