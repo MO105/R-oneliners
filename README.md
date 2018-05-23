@@ -105,7 +105,13 @@ date = "1997-01-01"
 df$year <- substring(df$date, 1, 4)
 df$month <- substring(df$date, 6, 7)
 
-## Make bold titles and add a little space at the baseline
+# Detecting patterns with `str_detect()` 
+library(stringr)
+some_objs <- c("pen", "pencil", "marker", "spray")
+str_detect(some_objs, "pen")
+some_objs[str_detect(some_objs, "pen")]
+
+# Make bold titles and add a little space at the baseline
 g + theme(plot.title = element_text(size = 20, face="bold", margin = margin(10, 0 , 10, 0)))
 
 ## Use other fonts in title
