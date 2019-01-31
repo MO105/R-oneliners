@@ -37,6 +37,12 @@ mtcars %>% add_tally()
 starwars %>%
   add_count(species) %>%
   filter(n == 1)
+  
+## Examine your numeric columns
+diamonds %>%
+   dplyr::select_if(is.numeric) %>%
+   skimr::skim()
+![](https://ibb.co/YQwFw13)
 
 ## Conditional statement to replace an erroneous date with a missing value
 library(lubridate)
