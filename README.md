@@ -5,9 +5,11 @@
 Here is my dollar-store inventory of how to do stuff in R. Plans are eventually to split this into sections (e.g. visualization with ggplot2, manipulation with dplyr, etc.) and make this `.Rmd` pretty but I may never.
 
 ## Install/load many packages at once
+```{r}
 install.packages('needs')
 library(needs)
 needs(rmarkdown, ggplot2, readr, tidyr, stringr)
+```
 
 ## Add more color's to brewer.pal's 9 color limit with colorRampPalette
 color = colorRampPalette(rev(brewer.pal(n = 9, name = "BuPu")))(100)
