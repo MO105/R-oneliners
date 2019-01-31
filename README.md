@@ -15,6 +15,13 @@ color = colorRampPalette(rev(brewer.pal(n = 9, name = "BuPu")))(100)
 ## If you see that year is being treated as a number and not as a year or factor
 df$year <- factor(df$year, ordered = TRUE)
 
+## Pass the dots function
+examine_df <- function(df, ...){ # "..." works for multiple items
+   dplyr::group_by(...) %>%
+   dplyr::summarise()
+}
+examine_df(mtcars, mpy, cyl)
+
 ## Rename a column 
 cars >%
    filter(speed > 20) %>%
