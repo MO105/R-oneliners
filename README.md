@@ -9,13 +9,6 @@ install.packages('needs')
 library(needs)
 needs(rmarkdown, ggplot2, readr, tidyr, stringr)
 
-## Useful line for knitting `.Rmd` files
-if (!require("needs")) {
-   install.packages("needs", dependencies = TRUE)
-   library(needs)
-}
-needs(rmarkdown, ggplot2, readr, tidyr, stringr)
-
 ## Add more color's to brewer.pal's 9 color limit with colorRampPalette
 color = colorRampPalette(rev(brewer.pal(n = 9, name = "BuPu")))(100)
 
