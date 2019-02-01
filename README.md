@@ -39,6 +39,21 @@ purrr::walk(
     )
   }
 )
+
+# Reads the file names and removes unnecessary
+# parts for clean variable names
+csv_names <- rlang::dir_map("data", as.character) %>%
+  stringr::str_remove("data/") %>%
+  stringr::str_remove(".csv")
+
+# Reads the files into memory and names
+# each list item 
+csv_files <- rlang::dir_map("data", read_csv) %>% 
+  rlang::set_names(csv_names)
+
+# To load each data frame in the list into
+# its own variable in our Global Environment
+rlang::env_bind(global_env(), !!! csv_files)
 ```
 
 ## Pass the dots function
