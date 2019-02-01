@@ -22,7 +22,7 @@ mat <- matrix(c(1, 2, 3,
                 4, 5, 6,
                 7, 8, 9), nrow = 3, byrow = TRUE)
                 
-matrix(rbind(mat, matrix(rep(vec, each = nrow(mat), ncol(mat))), nrow = nrow(mat))
+matrix(rbind(mat, matrix(rep(vec, each = nrow(mat)), ncol(mat))), nrow = nrow(mat))
 ```
 
 ## Install all `.csv` files from a github repo into `data` folder
