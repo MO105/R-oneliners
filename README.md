@@ -78,7 +78,19 @@ dplyr::case_when(z == "deg" ~ "Degree",
           TRUE ~ z)
 ```
 
-## summarise all combinations of grouping variables at once
+## Round to the nearest gap in a sequence
+
+```{r}
+devtools::install_github("nacnudus/rounders")
+
+rounders::floor_gap(c(5, 7, 8, 11, 15, 17, 25), width = 3)
+#> [1]  5  5  5 11 15 15 25
+
+rounders::ceiling_gap(c(5, 7, 8, 11, 15, 17, 25), width = 3)
+#> [1]  8  8  8 11 17 17 25
+```
+
+## Summarise all combinations of grouping variables at once
 
 ```{r}
 mtcars %>%
