@@ -6,14 +6,12 @@ Here is my dollar-store inventory of how to do stuff in R. Plans are eventually 
 
 ## Install/load many packages at once
 ```{r}
-install.packages('needs')
-library(needs)
-needs(rmarkdown, ggplot2, readr, tidyr, stringr)
+needs::needs(magrittr, tidyverse, broom)
 ```
 
 ## Add more color's to brewer.pal's 9 color limit with colorRampPalette
 ```{r}
-color = colorRampPalette(rev(brewer.pal(n = 9, name = "BuPu")))(100)
+color = dichromat::colorRampPalette(rev(brewer.pal(n = 9, name = "BuPu")))(100)
 ```
 
 ## Pass the dots function
@@ -28,27 +26,27 @@ examine_df(mtcars, mpy, cyl)
 ## Rename a column 
 ```{r}
 cars >%
-   filter(speed > 20) %>%
-   rename(high_speed = speed)
+   dplyr::filter(speed > 20) %>%
+   dplyr::rename(high_speed = speed)
 ```
 
 ## `add_tally()` is short-hand for `mutate()`
 ```{r}
 mtcars %>% 
-   add_tally()
+   dplyr::add_tally()
 ```
 
 ## `count()` is short-hand for `group_by()` and `tally()`
 ```{r}
 mtcars %>% 
-   add_tally()
+   dplyr::add_tally()
 ```
 
 ## `add_count()` is short-hand for `group_by()` and `add_tally()` and is useful for groupwise filtering (e.g. show only species with a single member)
 ```{r}
 starwars %>%
-  add_count(species) %>%
-  filter(n == 1)
+  dplyr::add_count(species) %>%
+  dplyr::filter(n == 1)
 ```
 
 ## Examine your numeric columns
@@ -164,9 +162,9 @@ mtcars %>%
 ## Use `if_else` `case_when` and `recode` inside a `mutate` function
 ```{r}
 dat1 <- dat %>% 
-  mutate(Country = recode(Country, "Canada" = "CAN",
+  dplyr::mutate(Country = recode(Country, "Canada" = "CAN",
                                    "United States of America" = "USA"),
-         Type = case_when(Source == "Calculated data" ~ 1,
+         Type = dplyr::case_when(Source == "Calculated data" ~ 1,
                           Source == "Official data" ~ 2,
                           TRUE ~ 3)) 
 head(dat1)  
@@ -175,32 +173,16 @@ head(dat1)
 ## Outputting a vector instead of a table using `pull()`
 ```{r}
 dat %>% 
-  filter(Crop == "Oats",
+  dplyr::filter(Crop == "Oats",
          Information == "Yield (Hg/Ha)") %>% 
-  summarise(Oats_sum = sum(Value)) %>% 
-  pull()
+  dplyr::summarise(Oats_sum = sum(Value)) %>% 
+  dply::pull()
 ```
 
           
 ## Replace NA factor levels
 ```{r}
-library(forcats)
-x <- fct_explicit_na(x, na_level = "Other")
-```
-
-## If a column has many measurements for one variable (duplicate row names with different values in different column) group them and take the sum
-```{r}
-if (!require("dplyr")) {
-   install.packages("dplyr", dependencies = TRUE)
-   library(dplyr)
-}
-
-df1 <- df1 %>% group_by(ensembl_gene_name) %>% summarise(sum(dBet6_1h))
-```
-
-## Merge multiple columns from different datasets together based on similar row values in a column
-```{r}
-m1 <- merge(df1, df2, "ensembl_gene_name")
+x <- forcats::fct_explicit_na(x, na_level = "Other")
 ```
 
 ## Turn +/- Inf values into some arbitrary number
@@ -234,10 +216,9 @@ stringr::str_replace_all(text, pattern = "\\s+", " ")
 
 # Detecting patterns with `str_detect()` 
 ```{r}
-library(stringr)
 some_objs <- c("pen", "pencil", "marker", "spray")
-str_detect(some_objs, "pen")
-some_objs[str_detect(some_objs, "pen")]
+stringr::str_detect(some_objs, "pen")
+some_objs[stringr::str_detect(some_objs, "pen")]
 
 strings = c("12 Jun 2002", "8 September 2004", "22-July-2009 ", "01 01 2001", "date", "02.06.2000", "xxx-yyy-zzzz", "$2,600")
 dates = "([0-9]{1,2})[- .]([a-zA-Z]+)]- .]([0-9]{4})"
@@ -246,16 +227,16 @@ dates = "([0-9]{1,2})[- .]([a-zA-Z]+)]- .]([0-9]{4})"
 # Reverse a string by characters
 ```{r}
 reverse_chars <- function(string){
-   string_split = strsplit(as.character(string), split = "")
+   string_split = stringr::strsplit(as.character(string), split = "")
    reversed_split = string_split[[1]][nchar(string):1]
-   paste(reversed_split, collapse="")
+   paste0(reversed_split)
    }
 ```
 
 # Reverse a string by words
 ```{r}
 reverse_words <- function(string){
-   string_split = strsplit(as.character(string), split = " ")
+   string_split = stringr::strsplit(as.character(string), split = " ")
    string_length = length(string_split[[1]])
    if (string_length == 1) {
       reversed_string = string_split[[1]]
