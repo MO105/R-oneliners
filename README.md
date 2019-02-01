@@ -74,10 +74,91 @@ if_else( y == "banana", as.character(NA), y)
 ### if multiple sets of conditions are to be tested, nested if/else statements become cumbersome and are prone to clerical error.
 ```{r}
 z <- c("deg","F","C", "Temperature")
-case_when(z == "deg" ~ "Degree",
+dplyr::case_when(z == "deg" ~ "Degree",
           z == "F" ~ "Fahrenheit",
           z == "C" ~ "Celsius",
           TRUE ~ z)
+```
+
+## summarise all combinations of grouping variables at once
+
+```{r}
+mtcars %>%
+  dplyr::group_by(cyl, gear, am) %>%
+  armgin::margins(mpg = mean(mpg),
+          hp = min(hp)) %>%
+  print(n = Inf)
+#> # A tibble: 21 x 5
+#> # Groups:   cyl [3]
+#>      cyl  gear    am   mpg    hp
+#>    <dbl> <dbl> <dbl> <dbl> <dbl>
+#>  1     4    NA    NA  26.7    52
+#>  2     6    NA    NA  19.7   105
+#>  3     8    NA    NA  15.1   150
+#>  4     4     3    NA  21.5    97
+#>  5     4     4    NA  26.9    52
+#>  6     4     5    NA  28.2    91
+#>  7     6     3    NA  19.8   105
+#>  8     6     4    NA  19.8   110
+#>  9     6     5    NA  19.7   175
+#> 10     8     3    NA  15.0   150
+#> 11     8     5    NA  15.4   264
+#> 12     4     3     0  21.5    97
+#> 13     4     4     0  23.6    62
+#> 14     4     4     1  28.0    52
+#> 15     4     5     1  28.2    91
+#> 16     6     3     0  19.8   105
+#> 17     6     4     0  18.5   123
+#> 18     6     4     1  21     110
+#> 19     6     5     1  19.7   175
+#> 20     8     3     0  15.0   150
+#> 21     8     5     1  15.4   264
+```
+Output individual data frames with `bind = FALSE`.
+```{r}
+mtcars %>%
+  dplyr::group_by(cyl, gear, am) %>%
+  armgin::margins(mpg = mean(mpg),
+          hp = min(hp),
+          bind = FALSE)
+#> [[1]]
+#> # A tibble: 3 x 3
+#> # Groups:   cyl [3]
+#>     cyl   mpg    hp
+#>   <dbl> <dbl> <dbl>
+#> 1     4  26.7    52
+#> 2     6  19.7   105
+#> 3     8  15.1   150
+#> 
+#> [[2]]
+#> # A tibble: 8 x 4
+#> # Groups:   cyl, gear [8]
+#>     cyl  gear   mpg    hp
+#>   <dbl> <dbl> <dbl> <dbl>
+#> 1     4     3  21.5    97
+#> 2     4     4  26.9    52
+#> 3     4     5  28.2    91
+#> 4     6     3  19.8   105
+#> 5     6     4  19.8   110
+#> 6     6     5  19.7   175
+#> 7     8     3  15.0   150
+#> 8     8     5  15.4   264
+#> 
+#> [[3]]
+#> # A tibble: 10 x 5
+#> # Groups:   cyl, gear, am [10]
+#>      cyl  gear    am   mpg    hp
+#>    <dbl> <dbl> <dbl> <dbl> <dbl>
+#>  1     4     3     0  21.5    97
+#>  2     4     4     0  23.6    62
+#>  3     4     4     1  28.0    52
+#>  4     4     5     1  28.2    91
+#>  5     6     3     0  19.8   105
+#>  6     6     4     0  18.5   123
+#>  7     6     4     1  21     110
+#>  8     6     5     1  19.7   175
+#>  9     8     3     0  15.0   150
+#> 10     8     5     1  15.4   264
 ```
 
 ## Use `if_else` `case_when` and `recode` inside a `mutate` function
