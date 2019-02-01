@@ -335,3 +335,9 @@ coord_flip()
 ```{r}
 g+theme(legend.title=element_blank())
 ```
+
+## GUI for editing `ggplot2` themes
+
+```{r}
+install.packages("ggThemeAssist")
+```
