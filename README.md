@@ -23,6 +23,16 @@ examine_df <- function(df, ...){ # "..." works for multiple items
 examine_df(mtcars, mpy, cyl)
 ```
 
+## Best reason to use tibble
+It can hold emojiis!
+```{r}
+tibble::tibble(party = "🎉 ")
+# 1 🎉 
+
+data.frame(party = "🎉 ")
+# 1 \U0001f389
+```
+
 ## Rename a column 
 ```{r}
 cars >%
