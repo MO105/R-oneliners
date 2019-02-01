@@ -14,6 +14,33 @@ needs::needs(magrittr, tidyverse, broom)
 color = dichromat::colorRampPalette(rev(brewer.pal(n = 9, name = "BuPu")))(100)
 ```
 
+
+## Install all `.csv` files from a github repo into `data` folder
+
+```{r}
+current <- "2019/2019-01-29"
+tidytuesday_path <- "https://github.com/rfordatascience/tidytuesday/tree/master/data/"
+tidytuesday_raw <-  "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/"
+
+if(!dir_exists("data")) dir_create("data")
+
+purrr::walk(
+  tables,
+  ~{
+    cv <- stringr::str_detect(.x$Name, ".csv")
+    fl <- .x$Name[cv]
+    purrr::walk(
+      fl, 
+      ~if(!file_exists(path( "data", .x)))
+        download.file(
+          paste0(sourced_raw, "/", .x), 
+          path("data", .x)
+          )  
+    )
+  }
+)
+```
+
 ## Pass the dots function
 ```{r}
 examine_df <- function(df, ...){ # "..." works for multiple items
