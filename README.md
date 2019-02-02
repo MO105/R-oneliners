@@ -145,7 +145,12 @@ dplyr::case_when(z == "deg" ~ "Degree",
 ```{r}
 mtcars %>%
   dplyr::filter(min_rank(mpg) <= 10)
+  
+# or the top ten with desc()
+mtcars %>% 
+  dplyr::filter(min_rank(desc(mpg)) <= 10)
 ```
+
 
 
 ## Round to the nearest gap in a sequence
