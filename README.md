@@ -14,6 +14,21 @@ needs::needs(magrittr, tidyverse, broom)
 color = dichromat::colorRampPalette(rev(brewer.pal(n = 9, name = "BuPu")))(100)
 ```
 
+## Get summaries at intermediate points in a pipe chain without breaking the flow
+### https://twitter.com/CMastication/status/1093509987538821120
+```{r}
+library(skimr)
+library(tidyverse)
+
+mtcars %>%
+  skimr::skim_tee %>%
+  group_by(carb) %>%
+  skim_tee %>%
+  filter(hp > 200) %>%
+  skim_tee ->
+  new_cars
+```
+
 ## Interleave a vector with a matrix of the same width
 
 ```{r}
