@@ -29,6 +29,21 @@ mtcars %>%
   new_cars
 ```
 
+## Look for duplicated items in list
+
+```{r}
+my_list %>% map(~distinct(., .keep_all = TRUE))
+```
+
+## Save a dataframe from a list
+
+```{r}
+for (i in names(x)){
+  tmp[ls] <- "DOSTUFF FOR EACH COLUMN HERE"
+}
+result <- tibble::as_tibble(do.call(cbind, tmp))
+```
+
 ## Interleave a vector with a matrix of the same width
 
 ```{r}
